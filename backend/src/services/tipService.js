@@ -8,11 +8,12 @@ export default {
   },
 
   async create({ title, userId }) {
-    // TODO: get ahold of the db using readDb();
-    // TODO: create a tip object containing { id: "some-random-id", title, userId }
-    // TODO: push the tip object into tips list in the database
-    // TODO: write changes to database with await writeDb(db)
-    // TODO: return the id of the created tip
+    const db = await readDb();
+    const tipId = crypto.randomUUID()
+    const newTip = {id: tipId, title: title, userId: userId};
+    db.tips.push(newTip);
+    await writeDb(db);
+    return tipId
   },
 
   async update({ id, title, userId }) {
