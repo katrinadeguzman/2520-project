@@ -17,12 +17,15 @@ export default {
   },
 
   async update({ id, title, userId }) {
-    // TODO: get ahold of the db using readDb();
-    // TODO: find a tip in the db whose id & userId matches the incoming id & userId
-    // TODO: if there is no matching tip, return false.
-    // TODO: otherwise, set the found tip's title to the incoming title
-    // TODO: write changes to database with await writeDb(db)
-    // TODO: return true
+    const db = await readDb();
+    const tipToUpdate = db.tips.find(tip => tip.id === id && tip.userId === userId);    
+      if (!tipToUpdate) {
+          return false;
+      } else {
+          Object.assign(tipToUpdate, {title: title});
+          await writeDb(db);
+          return true;
+      }
   },
 
   async remove({ id, userId }) {
