@@ -5,6 +5,9 @@ const DEFAULT_HEADER = {
   "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
 };
 
+import jwt from "jsonwebtoken";
+const JWT_SECRET = "secret";
+
 function verifyToken(token) {
   try {
     return jwt.verify(token, JWT_SECRET);
